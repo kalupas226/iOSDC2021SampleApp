@@ -24,7 +24,7 @@ final class GitHubViewModel: ObservableObject {
         gitHubAPIClient
             .searchRepository(searchWord)
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { self.repositories = $0.items })
+            .sink { [weak self] in self?.repositories = $0.items }
             .store(in: &cancellables)
     }
 }
