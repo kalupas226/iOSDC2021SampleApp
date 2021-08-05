@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1B30216226A3F2CD0038F586 /* iOSDC2021SampleAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30216126A3F2CD0038F586 /* iOSDC2021SampleAppApp.swift */; };
-		1B30216426A3F2CD0038F586 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30216326A3F2CD0038F586 /* ContentView.swift */; };
+		1B30216426A3F2CD0038F586 /* GitHubListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30216326A3F2CD0038F586 /* GitHubListView.swift */; };
 		1B30216626A3F2CF0038F586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B30216526A3F2CF0038F586 /* Assets.xcassets */; };
 		1B30216926A3F2CF0038F586 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B30216826A3F2CF0038F586 /* Preview Assets.xcassets */; };
 		1B30217426A3F2D00038F586 /* iOSDC2021SampleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30217326A3F2D00038F586 /* iOSDC2021SampleAppTests.swift */; };
 		1B30217F26A3F2D00038F586 /* iOSDC2021SampleAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B30217E26A3F2D00038F586 /* iOSDC2021SampleAppUITests.swift */; };
 		1B30218E26A3F3EC0038F586 /* CombineSchedulers in Frameworks */ = {isa = PBXBuildFile; productRef = 1B30218D26A3F3EC0038F586 /* CombineSchedulers */; };
+		1BAA3B5B26B9800B00BD51B5 /* GitHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5A26B9800B00BD51B5 /* GitHubRepository.swift */; };
+		1BAA3B5D26B980E500BD51B5 /* GitHubAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5C26B980E500BD51B5 /* GitHubAPIClient.swift */; };
+		1BAA3B5F26B9818A00BD51B5 /* GitHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		1B30215E26A3F2CD0038F586 /* iOSDC2021SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDC2021SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B30216126A3F2CD0038F586 /* iOSDC2021SampleAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSDC2021SampleAppApp.swift; sourceTree = "<group>"; };
-		1B30216326A3F2CD0038F586 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1B30216326A3F2CD0038F586 /* GitHubListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubListView.swift; sourceTree = "<group>"; };
 		1B30216526A3F2CF0038F586 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B30216826A3F2CF0038F586 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1B30216A26A3F2CF0038F586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +49,9 @@
 		1B30217A26A3F2D00038F586 /* iOSDC2021SampleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSDC2021SampleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B30217E26A3F2D00038F586 /* iOSDC2021SampleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSDC2021SampleAppUITests.swift; sourceTree = "<group>"; };
 		1B30218026A3F2D00038F586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BAA3B5A26B9800B00BD51B5 /* GitHubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepository.swift; sourceTree = "<group>"; };
+		1BAA3B5C26B980E500BD51B5 /* GitHubAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIClient.swift; sourceTree = "<group>"; };
+		1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +103,10 @@
 		1B30216026A3F2CD0038F586 /* iOSDC2021SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				1BAA3B5926B97FE800BD51B5 /* ViewModel */,
+				1BAA3B5826B97FE400BD51B5 /* View */,
+				1BAA3B5726B97FD500BD51B5 /* Model */,
 				1B30216126A3F2CD0038F586 /* iOSDC2021SampleAppApp.swift */,
-				1B30216326A3F2CD0038F586 /* ContentView.swift */,
 				1B30216526A3F2CF0038F586 /* Assets.xcassets */,
 				1B30216A26A3F2CF0038F586 /* Info.plist */,
 				1B30216726A3F2CF0038F586 /* Preview Content */,
@@ -130,6 +138,31 @@
 				1B30218026A3F2D00038F586 /* Info.plist */,
 			);
 			path = iOSDC2021SampleAppUITests;
+			sourceTree = "<group>";
+		};
+		1BAA3B5726B97FD500BD51B5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1BAA3B5A26B9800B00BD51B5 /* GitHubRepository.swift */,
+				1BAA3B5C26B980E500BD51B5 /* GitHubAPIClient.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1BAA3B5826B97FE400BD51B5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B30216326A3F2CD0038F586 /* GitHubListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1BAA3B5926B97FE800BD51B5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +300,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B30216426A3F2CD0038F586 /* ContentView.swift in Sources */,
+				1BAA3B5D26B980E500BD51B5 /* GitHubAPIClient.swift in Sources */,
+				1BAA3B5F26B9818A00BD51B5 /* GitHubViewModel.swift in Sources */,
+				1BAA3B5B26B9800B00BD51B5 /* GitHubRepository.swift in Sources */,
+				1B30216426A3F2CD0038F586 /* GitHubListView.swift in Sources */,
 				1B30216226A3F2CD0038F586 /* iOSDC2021SampleAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

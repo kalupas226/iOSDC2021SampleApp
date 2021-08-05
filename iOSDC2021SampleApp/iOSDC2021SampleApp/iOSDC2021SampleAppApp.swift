@@ -11,7 +11,11 @@ import SwiftUI
 struct iOSDC2021SampleAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GitHubListView(
+                viewModel: .init(
+                    gitHubAPIClient: .live
+                )
+            )
         }
     }
 }
