@@ -11,14 +11,14 @@ import Foundation
 final class GitHubViewModel: ObservableObject {
     private let gitHubAPIClient: GitHubAPIClient
 
-    init(gitHubAPIClient: GitHubAPIClient) {
-        self.gitHubAPIClient = gitHubAPIClient
-    }
+    private var cancellables: Set<AnyCancellable> = []
 
     @Published var searchWord = ""
     @Published var repositories: [GitHubRepository] = []
 
-    private var cancellables: Set<AnyCancellable> = []
+    init(gitHubAPIClient: GitHubAPIClient) {
+        self.gitHubAPIClient = gitHubAPIClient
+    }
 
     func searchButtonTapped() {
         gitHubAPIClient
