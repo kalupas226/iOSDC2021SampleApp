@@ -26,15 +26,14 @@ class iOSDC2021SampleAppTests: XCTestCase {
                 }
             )
         )
-        
+
         viewModel.$repositories
-            .sink { repositories.append(contentsOf: $0) }
+            .sink { repositories = $0 }
             .store(in: &cancellables)
         
         XCTAssertEqual(repositories, [])
 
         viewModel.searchWord = "search word"
-        viewModel.searchButtonTapped()
         
         _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.1)
         XCTAssertEqual(repositories, expectedRepositories)

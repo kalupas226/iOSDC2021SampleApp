@@ -15,16 +15,26 @@ final class GitHubViewModel: ObservableObject {
 
     @Published var searchWord = ""
     @Published var repositories: [GitHubRepository] = []
+    @Published var isLoading = false
 
     init(gitHubAPIClient: GitHubAPIClient) {
         self.gitHubAPIClient = gitHubAPIClient
-    }
 
-    func searchButtonTapped() {
-        gitHubAPIClient
-            .searchRepository(searchWord)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.repositories = $0.items }
+        $searchWord
+            .sink { [weak self] in
+                guard let self = self else { return }
+
+                self.isLoading = true
+
+                gitHubAPIClient
+                    .searchRepository($0)
+                    .receive(on: DispatchQueue.main)
+                    .sink {
+                        self.repositories = $0.items
+                        self.isLoading = false
+                    }
+                    .store(in: &self.cancellables)
+            }
             .store(in: &cancellables)
     }
 }

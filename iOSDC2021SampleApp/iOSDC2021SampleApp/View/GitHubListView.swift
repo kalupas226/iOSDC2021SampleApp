@@ -17,18 +17,19 @@ struct GitHubListView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                TextField("Search repository", text: $viewModel.searchWord)
-                    .autocapitalization(.none)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button("Search") {
-                    viewModel.searchButtonTapped()
-                }
-            }
-            
-            List {
-                ForEach(viewModel.repositories) { repository in
-                    Text(repository.fullName)
+            TextField("Search repository", text: $viewModel.searchWord)
+                .autocapitalization(.none)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+
+            if viewModel.isLoading {
+                Spacer()
+                Text("Loading...")
+                Spacer()
+            } else {
+                List {
+                    ForEach(viewModel.repositories) { repository in
+                        Text(repository.fullName)
+                    }
                 }
             }
         }
