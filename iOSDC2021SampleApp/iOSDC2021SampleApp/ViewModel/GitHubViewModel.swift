@@ -21,6 +21,7 @@ final class GitHubViewModel: ObservableObject {
         self.gitHubAPIClient = gitHubAPIClient
 
         $searchWord
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .sink { [weak self] in
                 guard let self = self else { return }
 

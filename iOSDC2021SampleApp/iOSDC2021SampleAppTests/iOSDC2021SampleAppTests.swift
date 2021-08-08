@@ -10,7 +10,7 @@ import XCTest
 @testable import iOSDC2021SampleApp
 
 class iOSDC2021SampleAppTests: XCTestCase {
-    func testSearchButtonTapped() throws {
+    func testInputSearchWords() throws {
         var cancellables: Set<AnyCancellable> = []
         var repositories: [GitHubRepository] = []
         
@@ -35,7 +35,7 @@ class iOSDC2021SampleAppTests: XCTestCase {
 
         viewModel.searchWord = "search word"
         
-        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.1)
+        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.33)
         XCTAssertEqual(repositories, expectedRepositories)
     }
 }
