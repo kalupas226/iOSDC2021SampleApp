@@ -50,7 +50,8 @@ struct GitHubListView_Previews: PreviewProvider {
                         )
                         .eraseToAnyPublisher()
                     }
-                )
+                ),
+                scheduler: .main
             )
         )
     }

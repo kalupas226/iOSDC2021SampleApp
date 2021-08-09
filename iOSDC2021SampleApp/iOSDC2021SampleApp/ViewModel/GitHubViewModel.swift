@@ -6,10 +6,12 @@
 //
 
 import Combine
+import CombineSchedulers
 import Foundation
 
 final class GitHubViewModel: ObservableObject {
     private let gitHubAPIClient: GitHubAPIClient
+    private let scheduler: AnySchedulerOf<DispatchQueue>
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -17,11 +19,12 @@ final class GitHubViewModel: ObservableObject {
     @Published var repositories: [GitHubRepository] = []
     @Published var isLoading = false
 
-    init(gitHubAPIClient: GitHubAPIClient) {
+    init(gitHubAPIClient: GitHubAPIClient, scheduler: AnySchedulerOf<DispatchQueue>) {
         self.gitHubAPIClient = gitHubAPIClient
+        self.scheduler = scheduler
 
         $searchWord
-            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(300), scheduler: scheduler)
             .sink { [weak self] in
                 guard let self = self else { return }
 
@@ -29,7 +32,7 @@ final class GitHubViewModel: ObservableObject {
 
                 gitHubAPIClient
                     .searchRepository($0)
-                    .receive(on: DispatchQueue.main)
+                    .receive(on: scheduler)
                     .sink {
                         self.repositories = $0.items
                         self.isLoading = false

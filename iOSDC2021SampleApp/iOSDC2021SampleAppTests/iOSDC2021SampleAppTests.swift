@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CombineSchedulers
 import XCTest
 @testable import iOSDC2021SampleApp
 
@@ -15,7 +16,8 @@ class iOSDC2021SampleAppTests: XCTestCase {
         var repositories: [GitHubRepository] = []
         
         let expectedRepositories: [GitHubRepository] = (1...3).map { .init(id: $0, fullName: "Repository \($0)") }
-        
+        let scheduler = DispatchQueue.test
+
         let viewModel = GitHubViewModel(
             gitHubAPIClient: .init(
                 searchRepository: { _ in
@@ -24,7 +26,8 @@ class iOSDC2021SampleAppTests: XCTestCase {
                     )
                     .eraseToAnyPublisher()
                 }
-            )
+            ),
+            scheduler: scheduler.eraseToAnyScheduler()
         )
 
         viewModel.$repositories
@@ -34,8 +37,8 @@ class iOSDC2021SampleAppTests: XCTestCase {
         XCTAssertEqual(repositories, [])
 
         viewModel.searchWord = "search word"
-        
-        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.33)
+
+        scheduler.advance(by: .milliseconds(300))
         XCTAssertEqual(repositories, expectedRepositories)
     }
 }

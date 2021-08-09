@@ -13,7 +13,8 @@ struct iOSDC2021SampleAppApp: App {
         WindowGroup {
             GitHubListView(
                 viewModel: .init(
-                    gitHubAPIClient: .live
+                    gitHubAPIClient: .live,
+                    scheduler: .main
                 )
             )
         }
