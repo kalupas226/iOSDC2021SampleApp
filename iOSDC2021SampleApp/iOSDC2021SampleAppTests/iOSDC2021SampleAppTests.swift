@@ -37,8 +37,9 @@ class iOSDC2021SampleAppTests: XCTestCase {
         XCTAssertEqual(repositories, [])
 
         viewModel.searchWord = "search word"
-
-        scheduler.advance(by: .milliseconds(300))
+        
+//        _ = XCTWaiter.wait(for: [XCTestExpectation()], timeout: 0.33)
+        scheduler.advance(by: 0.3)
         XCTAssertEqual(repositories, expectedRepositories)
     }
 }
