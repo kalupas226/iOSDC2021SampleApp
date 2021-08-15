@@ -38,12 +38,12 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
     }
 }
 
-//extension DispatchQueue {
-//    static var test: MyTestSchedulerOf<DispatchQueue> {
-//        .init(now: .init(.init(uptimeNanoseconds: 1)))
-//    }
-//}
-//
-//typealias MyTestSchedulerOf<Scheduler> = MyTestScheduler<
-//    Scheduler.SchedulerTimeType, Scheduler.SchedulerOptions
-//> where Scheduler: Combine.Scheduler
+extension DispatchQueue {
+    static var myTest: MyTestSchedulerOf<DispatchQueue> {
+        .init(now: .init(.init(uptimeNanoseconds: 1)))
+    }
+}
+
+typealias MyTestSchedulerOf<Scheduler> = MyTestScheduler<
+    Scheduler.SchedulerTimeType, Scheduler.SchedulerOptions
+> where Scheduler: Combine.Scheduler

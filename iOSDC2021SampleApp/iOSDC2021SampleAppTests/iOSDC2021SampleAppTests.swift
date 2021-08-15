@@ -44,9 +44,7 @@ class iOSDC2021SampleAppTests: XCTestCase {
     }
 
     func testImmediateScheduledAction() {
-        let testScheduler = MyTestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>(
-            now: .init(.init(uptimeNanoseconds: 0))
-        )
+        let testScheduler = DispatchQueue.myTest
 
         var isExecuted = false
         testScheduler.schedule {
