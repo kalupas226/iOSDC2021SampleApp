@@ -17,6 +17,7 @@
 		1BAA3B5B26B9800B00BD51B5 /* GitHubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5A26B9800B00BD51B5 /* GitHubRepository.swift */; };
 		1BAA3B5D26B980E500BD51B5 /* GitHubAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5C26B980E500BD51B5 /* GitHubAPIClient.swift */; };
 		1BAA3B5F26B9818A00BD51B5 /* GitHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */; };
+		1BEF9FB726C3D392007DCF34 /* MyTestScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF9FB626C3D392007DCF34 /* MyTestScheduler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		1BAA3B5A26B9800B00BD51B5 /* GitHubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepository.swift; sourceTree = "<group>"; };
 		1BAA3B5C26B980E500BD51B5 /* GitHubAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIClient.swift; sourceTree = "<group>"; };
 		1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewModel.swift; sourceTree = "<group>"; };
+		1BEF9FB626C3D392007DCF34 /* MyTestScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTestScheduler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		1B30216026A3F2CD0038F586 /* iOSDC2021SampleApp */ = {
 			isa = PBXGroup;
 			children = (
+				1BEF9FB526C3D36C007DCF34 /* Scheduler */,
 				1BAA3B5926B97FE800BD51B5 /* ViewModel */,
 				1BAA3B5826B97FE400BD51B5 /* View */,
 				1BAA3B5726B97FD500BD51B5 /* Model */,
@@ -163,6 +166,14 @@
 				1BAA3B5E26B9818A00BD51B5 /* GitHubViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1BEF9FB526C3D36C007DCF34 /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				1BEF9FB626C3D392007DCF34 /* MyTestScheduler.swift */,
+			);
+			path = Scheduler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BAA3B5D26B980E500BD51B5 /* GitHubAPIClient.swift in Sources */,
+				1BEF9FB726C3D392007DCF34 /* MyTestScheduler.swift in Sources */,
 				1BAA3B5F26B9818A00BD51B5 /* GitHubViewModel.swift in Sources */,
 				1BAA3B5B26B9800B00BD51B5 /* GitHubRepository.swift in Sources */,
 				1B30216426A3F2CD0038F586 /* GitHubListView.swift in Sources */,

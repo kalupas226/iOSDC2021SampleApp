@@ -42,4 +42,19 @@ class iOSDC2021SampleAppTests: XCTestCase {
         scheduler.advance(by: 0.3)
         XCTAssertEqual(repositories, expectedRepositories)
     }
+
+    func testImmediateScheduledAction() {
+        let testScheduler = MyTestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>(
+            now: .init(.init(uptimeNanoseconds: 0))
+        )
+
+        var isExecuted = false
+        testScheduler.schedule {
+            isExecuted = true
+        }
+
+        XCTAssertEqual(isExecuted, false)
+        testScheduler.advance()
+        XCTAssertEqual(isExecuted, true)
+    }
 }
