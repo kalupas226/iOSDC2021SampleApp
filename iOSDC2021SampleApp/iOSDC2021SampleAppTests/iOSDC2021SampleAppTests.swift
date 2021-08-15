@@ -55,4 +55,19 @@ class iOSDC2021SampleAppTests: XCTestCase {
         testScheduler.advance()
         XCTAssertEqual(isExecuted, true)
     }
+    
+    func testImmediatePublisherScheduledAction() {
+        let testScheduler = DispatchQueue.myTest
+        var result: [Int] = []
+        var cancellables: Set<AnyCancellable> = []
+        
+        Just(1)
+            .receive(on: testScheduler)
+            .sink { result.append($0) }
+            .store(in: &cancellables)
+        
+        XCTAssertEqual(result, [])
+        testScheduler.advance()
+        XCTAssertEqual(result, [1])
+    }
 }
