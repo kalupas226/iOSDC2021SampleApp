@@ -16,25 +16,43 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         self.now = now
     }
 
-    private var scheduled: [() -> Void] = []
+    private var scheduled: [(action: () -> Void, date: SchedulerTimeType)] = []
 
-    func schedule(options _: SchedulerOptions?, _ action: @escaping () -> Void) {
-        scheduled.append(action)
+    func schedule(
+        options _: SchedulerOptions?,
+        _ action: @escaping () -> Void
+    ) {
+        scheduled.append((action, now))
     }
     
-    func schedule(after date: SchedulerTimeType, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) {
-        return
+    func schedule(
+        after date: SchedulerTimeType,
+        tolerance _: SchedulerTimeType.Stride,
+        options _: SchedulerOptions?,
+        _ action: @escaping () -> Void
+    ) {
+        scheduled.append((action, date))
     }
     
-    func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> Cancellable {
+    func schedule(
+        after date: SchedulerTimeType,
+        interval: SchedulerTimeType.Stride,
+        tolerance: SchedulerTimeType.Stride,
+        options: SchedulerOptions?,
+        _ action: @escaping () -> Void
+    ) -> Cancellable {
         return AnyCancellable{}
     }
-    
-    func advance() {
-        for action in scheduled {
-            action()
+
+    func advance(by stride: SchedulerTimeType.Stride = .zero) {
+        now = now.advanced(by: stride)
+
+        for (action, date) in scheduled {
+            if date <= now {
+                action()
+            }
         }
-        scheduled.removeAll()
+        scheduled.removeAll(where: { $0.date <= now })
     }
 }
 

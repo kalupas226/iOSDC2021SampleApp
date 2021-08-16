@@ -70,4 +70,34 @@ class iOSDC2021SampleAppTests: XCTestCase {
         testScheduler.advance()
         XCTAssertEqual(result, [1])
     }
+    
+    func testDelayScheduledAction() {
+        let testScheduler = DispatchQueue.myTest
+        
+        var isExecuted = false
+        testScheduler.schedule(after: testScheduler.now.advanced(by: 1)) {
+            isExecuted = true
+        }
+        
+        XCTAssertEqual(isExecuted, false)
+        testScheduler.advance(by: .milliseconds(500))
+        XCTAssertEqual(isExecuted, false)
+        testScheduler.advance(by: .milliseconds(500))
+        XCTAssertEqual(isExecuted, true)
+    }
+
+    func testLongLongDelayScheduledAction() {
+        let testScheduler = DispatchQueue.myTest
+        
+        var isExecuted = false
+        testScheduler.schedule(after: testScheduler.now.advanced(by: 5000)) {
+            isExecuted = true
+        }
+        
+        XCTAssertEqual(isExecuted, false)
+        testScheduler.advance(by: 4999)
+        XCTAssertEqual(isExecuted, false)
+        testScheduler.advance(by: 1)
+        XCTAssertEqual(isExecuted, true)
+    }
 }
