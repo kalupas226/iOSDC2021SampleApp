@@ -100,4 +100,26 @@ class iOSDC2021SampleAppTests: XCTestCase {
         testScheduler.advance(by: 1)
         XCTAssertEqual(isExecuted, true)
     }
+    
+    func testIntervalScheduledAction() {
+        let testScheduler = DispatchQueue.myTest
+        
+        var executeCount = 0
+        var cancellables: Set<AnyCancellable> = []
+        
+        testScheduler.schedule(after: testScheduler.now, interval: 1) {
+            executeCount += 1
+        }
+        .store(in: &cancellables)
+        
+        XCTAssertEqual(executeCount, 0)
+        testScheduler.advance()
+        XCTAssertEqual(executeCount, 1)
+        testScheduler.advance(by: .milliseconds(500))
+        XCTAssertEqual(executeCount, 1)
+        testScheduler.advance(by: .milliseconds(500))
+        XCTAssertEqual(executeCount, 2)
+        testScheduler.advance(by: 4)
+        XCTAssertEqual(executeCount, 6)
+    }
 }

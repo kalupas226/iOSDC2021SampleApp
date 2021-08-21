@@ -41,18 +41,32 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         options: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) -> Cancellable {
-        return AnyCancellable{}
+        func scheduleAction(for date: SchedulerTimeType) -> () -> Void {
+          return { [weak self] in
+            action()
+            let nextDate = date.advanced(by: interval)
+            self?.scheduled.append((scheduleAction(for: nextDate), nextDate))
+          }
+        }
+
+        self.scheduled.append((scheduleAction(for: date), date))
+        
+        return AnyCancellable {}
     }
 
     func advance(by stride: SchedulerTimeType.Stride = .zero) {
         now = now.advanced(by: stride)
 
-        for (action, date) in scheduled {
-            if date <= now {
-                action()
+        var index = 0
+        while index < scheduled.count {
+            let work = scheduled[index]
+            if work.date <= now {
+                work.action()
+                scheduled.remove(at: index)
+            } else {
+                index += 1
             }
         }
-        scheduled.removeAll(where: { $0.date <= now })
     }
 }
 
