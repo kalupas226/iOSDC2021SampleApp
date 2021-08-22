@@ -43,9 +43,9 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
     ) -> Cancellable {
         func scheduleAction(for date: SchedulerTimeType) -> () -> Void {
           return { [weak self] in
-            action()
             let nextDate = date.advanced(by: interval)
             self?.scheduled.append((scheduleAction(for: nextDate), nextDate))
+            action()
           }
         }
 
@@ -55,16 +55,23 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
     }
 
     func advance(by stride: SchedulerTimeType.Stride = .zero) {
-        now = now.advanced(by: stride)
+        let finalDate = now.advanced(by: stride)
+        
+        while now <= finalDate {
+            scheduled.sort { $0.date < $1.date }
+            
+            guard let nextDate = scheduled.first?.date,
+                  finalDate >= nextDate
+            else {
+                now = finalDate
+                return
+            }
 
-        var index = 0
-        while index < scheduled.count {
-            let work = scheduled[index]
-            if work.date <= now {
-                work.action()
-                scheduled.remove(at: index)
-            } else {
-                index += 1
+            now = nextDate
+
+            while let (action, date) = scheduled.first, date == nextDate {
+                scheduled.removeFirst()
+                action()
             }
         }
     }

@@ -122,4 +122,33 @@ class iOSDC2021SampleAppTests: XCTestCase {
         testScheduler.advance(by: 4)
         XCTAssertEqual(executeCount, 6)
     }
+    
+    func testTwoIntervalsScheduledAction() {
+        let testScheduler = DispatchQueue.myTest
+        
+        var values: [String] = []
+        let firstInterval = testScheduler.schedule(after: testScheduler.now.advanced(by: 1), interval: 1) {
+            values.append("first")
+        }
+        let secondInterval = testScheduler.schedule(after: testScheduler.now.advanced(by: 2), interval: 2) {
+            values.append("second")
+        }
+        
+        XCTAssertEqual(values, [])
+        testScheduler.advance(by: 2)
+        XCTAssertEqual(values, ["first", "first", "second"])
+    }
+    
+    func testScheduleNow() {
+        let testScheduler = DispatchQueue.myTest
+        
+        var times: [UInt64] = []
+        let interval = testScheduler.schedule(after: testScheduler.now, interval: 1) {
+            times.append(testScheduler.now.dispatchTime.uptimeNanoseconds)
+        }
+        
+        XCTAssertEqual(times, [])
+        testScheduler.advance(by: 3)
+        XCTAssertEqual(times, [1, 1_000_000_001, 2_000_000_001, 3_000_000_001])
+    }
 }
