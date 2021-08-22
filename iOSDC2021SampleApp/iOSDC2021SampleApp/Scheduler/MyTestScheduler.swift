@@ -16,13 +16,14 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         self.now = now
     }
 
-    private var scheduled: [(action: () -> Void, date: SchedulerTimeType)] = []
+    private var lastSequence: UInt = 0
+    private var scheduled: [(sequence: UInt, action: () -> Void, date: SchedulerTimeType)] = []
 
     func schedule(
         options _: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) {
-        scheduled.append((action, now))
+        scheduled.append((nextSequence(), action, now))
     }
     
     func schedule(
@@ -31,7 +32,7 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         options _: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) {
-        scheduled.append((action, date))
+        scheduled.append((nextSequence(), action, date))
     }
     
     func schedule(
@@ -41,15 +42,17 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         options: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) -> Cancellable {
+        let sequence = nextSequence()
+
         func scheduleAction(for date: SchedulerTimeType) -> () -> Void {
           return { [weak self] in
             let nextDate = date.advanced(by: interval)
-            self?.scheduled.append((scheduleAction(for: nextDate), nextDate))
+            self?.scheduled.append((sequence, scheduleAction(for: nextDate), nextDate))
             action()
           }
         }
 
-        self.scheduled.append((scheduleAction(for: date), date))
+        self.scheduled.append((sequence, scheduleAction(for: date), date))
         
         return AnyCancellable {}
     }
@@ -58,7 +61,7 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
         let finalDate = now.advanced(by: stride)
         
         while now <= finalDate {
-            scheduled.sort { $0.date < $1.date }
+            scheduled.sort { ($0.date, $0.sequence) < ($1.date, $1.sequence) }
             
             guard let nextDate = scheduled.first?.date,
                   finalDate >= nextDate
@@ -69,11 +72,16 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
 
             now = nextDate
 
-            while let (action, date) = scheduled.first, date == nextDate {
+            while let (_, action, date) = scheduled.first, date == nextDate {
                 scheduled.removeFirst()
                 action()
             }
         }
+    }
+    
+    private func nextSequence() -> UInt {
+        lastSequence += 1
+        return lastSequence
     }
 }
 
