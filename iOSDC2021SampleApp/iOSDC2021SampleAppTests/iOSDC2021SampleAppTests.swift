@@ -125,14 +125,15 @@ class iOSDC2021SampleAppTests: XCTestCase {
     
     func testTwoIntervalsScheduledAction() {
         let testScheduler = DispatchQueue.myTest
+        var cancellables: Set<AnyCancellable> = []
         
         var values: [String] = []
-        let firstInterval = testScheduler.schedule(after: testScheduler.now.advanced(by: 1), interval: 1) {
+        _ = testScheduler.schedule(after: testScheduler.now.advanced(by: 1), interval: 1) {
             values.append("first")
-        }
-        let secondInterval = testScheduler.schedule(after: testScheduler.now.advanced(by: 2), interval: 2) {
+        }.store(in: &cancellables)
+        _ = testScheduler.schedule(after: testScheduler.now.advanced(by: 2), interval: 2) {
             values.append("second")
-        }
+        }.store(in: &cancellables)
         
         XCTAssertEqual(values, [])
         testScheduler.advance(by: 2)
@@ -141,11 +142,12 @@ class iOSDC2021SampleAppTests: XCTestCase {
     
     func testScheduleNow() {
         let testScheduler = DispatchQueue.myTest
+        var cancellables: Set<AnyCancellable> = []
         
         var times: [UInt64] = []
-        let interval = testScheduler.schedule(after: testScheduler.now, interval: 1) {
+        _ = testScheduler.schedule(after: testScheduler.now, interval: 1) {
             times.append(testScheduler.now.dispatchTime.uptimeNanoseconds)
-        }
+        }.store(in: &cancellables)
         
         XCTAssertEqual(times, [])
         testScheduler.advance(by: 3)
