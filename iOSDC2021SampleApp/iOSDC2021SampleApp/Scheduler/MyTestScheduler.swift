@@ -89,6 +89,7 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
 
 extension DispatchQueue {
     static var myTest: MyTestSchedulerOf<DispatchQueue> {
+        // MyTestScheduler(now: DispatchQueue.SchedulerTimeType(DispatchTime(uptimeNanoseconds: 1)))
         .init(now: .init(.init(uptimeNanoseconds: 1)))
     }
 }
