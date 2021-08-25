@@ -52,7 +52,7 @@ final class MyTestScheduler<SchedulerTimeType, SchedulerOptions>: Scheduler wher
           }
         }
 
-        self.scheduled.append((sequence, scheduleAction(for: date), date))
+        scheduled.append((sequence, scheduleAction(for: date), date))
         
         return AnyCancellable {
             self.scheduled.removeAll(where: { $0.sequence == sequence })
